@@ -123,7 +123,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="photo.cpp" />
+    <ClCompile Include="settings_page.cpp" />
+    <ClCompile Include="start_page.cpp" />
+    <ClCompile Include="worldcup_page.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="input.h" />
+    <ClInclude Include="photo.h" />
+    <ClInclude Include="settings_page.h" />
+    <ClInclude Include="start_page.h" />
+    <ClInclude Include="worldcup_page.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
