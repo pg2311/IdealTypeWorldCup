@@ -1,7 +1,9 @@
 ﻿#ifndef START_PAGE_H
 #define START_PAGE_H
 
-// Returns: 0 = Start selected, 1 = Exit selected
-int showStartPage();
+#include "constants.h"
+
+// Returns: MenuChoice::START or MenuChoice::EXIT
+MenuChoice showStartPage();
 
 #endif

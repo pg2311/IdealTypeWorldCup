@@ -17,16 +17,16 @@ int main() {
     _setmode(_fileno(stderr), _O_U16TEXT);
 
     // Step 1: Start Page
-    int startChoice = showStartPage();
+    MenuChoice startChoice = showStartPage();
 
-    if (startChoice == 1) {  // Exit selected
+    if (startChoice == MenuChoice::EXIT) {
         clearScreen();
         wcout << L"Goodbye!\n";
         return 0;
     }
 
     // Step 2: Settings Page
-    int gender = showSettingsPage();
+    Gender gender = showSettingsPage();
 
     // Step 3: World Cup Page
     showWorldCupPage(gender);

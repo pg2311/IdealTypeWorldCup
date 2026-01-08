@@ -1,7 +1,9 @@
 ﻿#ifndef SETTINGS_PAGE_H
 #define SETTINGS_PAGE_H
 
-// Returns: 0 = Male, 1 = Female
-int showSettingsPage();
+#include "constants.h"
+
+// Returns: Gender::MALE or Gender::FEMALE
+Gender showSettingsPage();
 
 #endif

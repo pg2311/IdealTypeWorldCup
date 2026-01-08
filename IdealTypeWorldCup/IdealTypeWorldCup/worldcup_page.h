@@ -1,7 +1,9 @@
 ﻿#ifndef WORLDCUP_PAGE_H
 #define WORLDCUP_PAGE_H
 
-// gender: 0 = Male, 1 = Female
-void showWorldCupPage(int gender);
+#include "constants.h"
+
+// gender: Gender::MALE or Gender::FEMALE
+void showWorldCupPage(Gender gender);
 
 #endif

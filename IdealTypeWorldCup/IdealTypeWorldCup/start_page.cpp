@@ -25,7 +25,7 @@ void displayStart(int selected) {
     wcout << L"\n  [UP/DOWN] Move  [ENTER] Select\n";
 }
 
-int showStartPage() {
+MenuChoice showStartPage() {
     int selected = 0;
 
     while (true) {
@@ -42,7 +42,7 @@ int showStartPage() {
             if (selected > 1) selected = 0;
         }
         else if (key == KEY_ENTER) {
-            return selected;
+            return static_cast<MenuChoice>(selected);
         }
     }
 }

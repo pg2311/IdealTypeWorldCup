@@ -1,9 +1,12 @@
 ﻿#include "worldcup_page.h"
 #include "input.h"
 #include "photo.h"
+#include "constants.h"
 #include <iostream>
 #include <string>
 #include <vector>
+#include <random>
+#include <algorithm>
 
 using namespace std;
 
@@ -24,7 +27,7 @@ void displayMatch(int left_photo, int right_photo, wstring left_name, wstring ri
     wcout << L"====================================================================\n";
 
     // Display photos side by side (trim left/right, limit height, skip top)
-    printPhotoSideBySide(left_photo, right_photo, selected, 8, 8, 37, 8);
+    printPhotoSideBySide(left_photo, right_photo, selected, TRIM_LEFT, TRIM_RIGHT, MAX_HEIGHT, SKIP_TOP);
 
     wcout << L"\n";
     if (selected == 0) {
@@ -37,15 +40,20 @@ void displayMatch(int left_photo, int right_photo, wstring left_name, wstring ri
     }
 }
 
-void showWorldCupPage(int gender) {
+void showWorldCupPage(Gender gender) {
     // Initialize candidates based on gender
     // Male: photos 1-8, Female: photos 9-16
     vector<int> current_round;
-    int photo_start = (gender == 0) ? 1 : 9;
+    int photo_start = (gender == Gender::MALE) ? PHOTO_START_MALE : PHOTO_START_FEMALE;
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < PHOTOS_PER_GENDER; i++) {
         current_round.push_back(photo_start + i);
     }
+
+    // Shuffle candidates for random matchups
+    random_device rd;
+    mt19937 gen(rd());
+    shuffle(current_round.begin(), current_round.end(), gen);
 
     // Tournament loop - continue until one winner
     while (current_round.size() > 1) {
@@ -96,7 +104,7 @@ void showWorldCupPage(int gender) {
     wcout << L"          CHAMPION!               \n";
     wcout << L"==================================\n\n";
 
-    printphoto(current_round[0], 37, 8);
+    printPhoto(current_round[0], MAX_HEIGHT, SKIP_TOP);
 
     wcout << L"\n\n";
     wcout << L"      Winner: " << names[current_round[0] - 1] << L"!\n\n";

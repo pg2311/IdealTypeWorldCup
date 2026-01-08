@@ -23,7 +23,7 @@ void displaySettings(int selected) {
     wcout << L"\n  [LEFT/RIGHT] Change  [ENTER] Confirm\n";
 }
 
-int showSettingsPage() {
+Gender showSettingsPage() {
     int selected = 0;  // 0 = Male, 1 = Female
 
     while (true) {
@@ -38,7 +38,7 @@ int showSettingsPage() {
             selected = 1;
         }
         else if (key == KEY_ENTER) {
-            return selected;
+            return static_cast<Gender>(selected);
         }
     }
 }

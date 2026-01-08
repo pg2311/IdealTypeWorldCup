@@ -1,5 +1,6 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #include "photo.h"
+#include "constants.h"
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
@@ -9,7 +10,7 @@
 #include <codecvt>
 
 // Names array definition
-wchar_t names[20][100] = {
+wchar_t names[MAX_NAMES][MAX_NAME_LENGTH] = {
     L"차은우",
     L"이재욱",
     L"손종원",
@@ -28,7 +29,7 @@ wchar_t names[20][100] = {
     L"김지원"
 };
 
-void printphoto(int photo_no, int max_height, int skip_top)
+void printPhoto(int photo_no, int max_height, int skip_top)
 {
     char path[256];
     sprintf(path, "imgs/%d.txt", photo_no);
