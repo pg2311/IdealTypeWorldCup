@@ -22,12 +22,14 @@ namespace Color {
     const std::wstring PASTEL_PURPLE = L"\033[35m";    // Magenta
     const std::wstring WHITE = L"\033[97m";            // Bright white
     const std::wstring GRAY = L"\033[90m";             // Dark gray
+    const std::wstring BLACK = L"\033[30m";
 
     // Background colors for highlighting
     const std::wstring BG_PASTEL_BLUE = L"\033[104m";  // Light blue background
     const std::wstring BG_PASTEL_CYAN = L"\033[106m";  // Light cyan background
     const std::wstring BG_PASTEL_PINK = L"\033[105m";  // Light magenta background
     const std::wstring BG_DARK = L"\033[100m";         // Dark gray background
+    const std::wstring BG_WHITE = L"\033[47m";
 
     // Combined styles for common uses
     const std::wstring TITLE = BOLD + PASTEL_CYAN;

@@ -99,6 +99,7 @@ void printPhoto(int photo_no, int max_height, int skip_top)
     }
 
     // Print all lines with fixed width
+    std::wcout << Color::BG_WHITE << Color::BLACK;
     for (const auto& l : lines)
     {
         std::wcout << l;
@@ -107,6 +108,7 @@ void printPhoto(int photo_no, int max_height, int skip_top)
             std::wcout << L" ";
         std::wcout << std::endl;
     }
+    std::wcout << Color::RESET;
 }
 
 void printPhotoSideBySide(int left_photo, int right_photo, int selected, int trim_left, int trim_right, int max_height, int skip_top)
@@ -188,7 +190,7 @@ void printPhotoSideBySide(int left_photo, int right_photo, int selected, int tri
     {
         // Left side
         if (selected == 0)
-            std::wcout << Color::PASTEL_YELLOW << L">> ";
+            std::wcout << Color::BG_WHITE << Color::BLACK << L">> ";
         else
             std::wcout << L"   ";
 
@@ -225,7 +227,7 @@ void printPhotoSideBySide(int left_photo, int right_photo, int selected, int tri
 
         // Right side
         if (selected == 1)
-            std::wcout << Color::PASTEL_YELLOW<< L">> ";
+            std::wcout << Color::BG_WHITE << Color::BLACK << L">> ";
         else
             std::wcout << L"   ";
 
