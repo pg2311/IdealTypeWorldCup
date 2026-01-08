@@ -1,4 +1,4 @@
-#include "start_page.h"
+﻿#include "start_page.h"
 #include "input.h"
 #include <iostream>
 
@@ -7,22 +7,22 @@ using namespace std;
 void displayStart(int selected) {
     clearScreen();
 
-    cout << "==================================\n";
-    cout << "                                  \n";
-    cout << "     IDEAL TYPE WORLD CUP         \n";
-    cout << "                                  \n";
-    cout << "==================================\n\n";
+    wcout << L"==================================\n";
+    wcout << L"                                  \n";
+    wcout << L"     IDEAL TYPE WORLD CUP         \n";
+    wcout << L"                                  \n";
+    wcout << L"==================================\n\n";
 
     if (selected == 0) {
-        cout << "        >  START  <               \n";
-        cout << "           EXIT                   \n";
+        wcout << L"        >  START  <               \n";
+        wcout << L"           EXIT                   \n";
     }
     else {
-        cout << "           START                  \n";
-        cout << "        >  EXIT   <               \n";
+        wcout << L"           START                  \n";
+        wcout << L"        >  EXIT   <               \n";
     }
 
-    cout << "\n  [UP/DOWN] Move  [ENTER] Select\n";
+    wcout << L"\n  [UP/DOWN] Move  [ENTER] Select\n";
 }
 
 int showStartPage() {

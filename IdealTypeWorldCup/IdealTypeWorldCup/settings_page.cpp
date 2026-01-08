@@ -1,4 +1,4 @@
-#include "settings_page.h"
+﻿#include "settings_page.h"
 #include "input.h"
 #include <iostream>
 
@@ -7,20 +7,20 @@ using namespace std;
 void displaySettings(int selected) {
     clearScreen();
 
-    cout << "==================================\n";
-    cout << "            SETTINGS              \n";
-    cout << "==================================\n\n";
+    wcout << L"==================================\n";
+    wcout << L"            SETTINGS              \n";
+    wcout << L"==================================\n\n";
 
-    cout << "      Select Version:\n\n";
+    wcout << L"      Select Version:\n\n";
 
     if (selected == 0) {
-        cout << "      [ MALE ]    FEMALE  \n";
+        wcout << L"      [ MALE ]    FEMALE  \n";
     }
     else {
-        cout << "        MALE    [ FEMALE ]\n";
+        wcout << L"        MALE    [ FEMALE ]\n";
     }
 
-    cout << "\n  [LEFT/RIGHT] Change  [ENTER] Confirm\n";
+    wcout << L"\n  [LEFT/RIGHT] Change  [ENTER] Confirm\n";
 }
 
 int showSettingsPage() {
