@@ -2,6 +2,7 @@
 #include "settings_page.h"
 #include "worldcup_page.h"
 #include "input.h"
+#include "colors.h"
 #include <iostream>
 #include <windows.h>
 #include <locale>
@@ -11,6 +12,13 @@
 using namespace std;
 
 int main() {
+    // Enable ANSI escape sequences on Windows console
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD dwMode = 0;
+    GetConsoleMode(hOut, &dwMode);
+    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    SetConsoleMode(hOut, dwMode);
+
     // Set console to Unicode mode for proper Korean display
     _setmode(_fileno(stdout), _O_U16TEXT);
     _setmode(_fileno(stdin), _O_U16TEXT);
@@ -21,7 +29,7 @@ int main() {
 
     if (startChoice == MenuChoice::EXIT) {
         clearScreen();
-        wcout << L"Goodbye!\n";
+        wcout << L"안녕히 가세요!" << L"\n";
         return 0;
     }
 

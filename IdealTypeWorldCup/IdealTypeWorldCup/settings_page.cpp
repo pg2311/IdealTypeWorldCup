@@ -1,5 +1,6 @@
 ﻿#include "settings_page.h"
 #include "input.h"
+#include "colors.h"
 #include <iostream>
 
 using namespace std;
@@ -7,20 +8,25 @@ using namespace std;
 void displaySettings(int selected) {
     clearScreen();
 
-    wcout << L"==================================\n";
-    wcout << L"            SETTINGS              \n";
-    wcout << L"==================================\n\n";
+    // Decorated title with colors
+    wcout << L"╔════════════════════════════════════╗\n";
+    wcout << L"║              설정                  ║\n";
+    wcout << L"╚════════════════════════════════════╝\n";
 
-    wcout << L"      Select Version:\n\n";
+    wcout << L"버전 선택:\n";
 
+    // Gender options with highlighting
     if (selected == 0) {
-        wcout << L"      [ MALE ]    FEMALE  \n";
+        wcout << L"        " << Color::SELECTED << L"  남자  " << Color::RESET;
+        wcout << L"      " << Color::UNSELECTED << L"  여자  " << Color::RESET << L"\n";
     }
     else {
-        wcout << L"        MALE    [ FEMALE ]\n";
+        wcout << L"        " << Color::UNSELECTED << L"  남자  " << Color::RESET;
+        wcout << L"      " << Color::SELECTED << L"  여자  " << Color::RESET << L"\n";
     }
 
-    wcout << L"\n  [LEFT/RIGHT] Change  [ENTER] Confirm\n";
+    wcout << L"\n\n";
+    wcout << L"  [왼쪽/오른쪽] 변경  [엔터] 확인\n";
 }
 
 Gender showSettingsPage() {

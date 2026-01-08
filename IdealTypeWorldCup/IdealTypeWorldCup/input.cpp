@@ -1,4 +1,5 @@
 ﻿#include "input.h"
+#include "colors.h"
 #include <iostream>
 #include <conio.h>  // Windows-only header for keyboard input
 
@@ -27,5 +28,7 @@ int getKey() {
 }
 
 void clearScreen() {
-    system("cls");  // Windows clear screen command
+    // Use ANSI escape codes to clear screen (more portable, works on modern Windows)
+    wcout << Color::CLEAR_SCREEN;
+    wcout.flush();
 }

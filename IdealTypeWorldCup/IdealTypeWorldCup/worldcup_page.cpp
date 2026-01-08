@@ -2,6 +2,7 @@
 #include "input.h"
 #include "photo.h"
 #include "constants.h"
+#include "colors.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -13,30 +14,33 @@ using namespace std;
 void displayMatch(int left_photo, int right_photo, wstring left_name, wstring right_name, int selected, int round, int match_num, int total_matches) {
     clearScreen();
 
-    wcout << L"====================================================================\n";
-    wcout << L"          WORLD CUP               ";
+    // Decorated title with round information
+    wcout << Color::BORDER << L"╔══════════════════════════════════════════════════════════════════╗\n";
+    wcout << L"║  " << Color::TITLE << L"          월드컵               ";
 
-    // Display round information
+    // Display round information with colors
     if (round == 8)
-        wcout << L"       ROUND OF 8 - Match " << match_num << L"/" << total_matches << L"\n";
+        wcout << Color::ROUND_INFO << L"     8강 - " << match_num << L"/" << total_matches << L" 경기    " << Color::BORDER;
     else if (round == 4)
-        wcout << L"      SEMI FINALS - Match " << match_num << L"/" << total_matches << L"\n";
+        wcout << Color::ROUND_INFO << L"  준결승 - " << match_num << L"/" << total_matches << L" 경기    " << Color::BORDER;
     else if (round == 2)
-        wcout << L"          FINALS\n";
+        wcout << Color::ROUND_INFO << L"          결승         " << Color::BORDER;
 
-    wcout << L"====================================================================\n";
+    wcout << L"          ║\n";
+    wcout << L"╚══════════════════════════════════════════════════════════════════╝" << Color::RESET << L"\n";
 
     // Display photos side by side (trim left/right, limit height, skip top)
     printPhotoSideBySide(left_photo, right_photo, selected, TRIM_LEFT, TRIM_RIGHT, MAX_HEIGHT, SKIP_TOP);
 
     wcout << L"\n";
+    // Display names with highlighting
     if (selected == 0) {
-        wcout << L"        [" << left_name << L"]";
-        wcout << L"              " << right_name << L"\n";
+        wcout << L"        " << Color::SELECTED << L" " << left_name << L" " << Color::RESET;
+        wcout << L"              " << Color::UNSELECTED << right_name << Color::RESET << L"\n";
     }
     else {
-        wcout << L"         " << left_name;
-        wcout << L"              [" << right_name << L"]\n";
+        wcout << L"        " << Color::UNSELECTED << left_name << Color::RESET;
+        wcout << L"              " << Color::SELECTED << L" " << right_name << L" " << Color::RESET << L"\n";
     }
 }
 
@@ -100,14 +104,17 @@ void showWorldCupPage(Gender gender) {
 
     // Display final winner
     clearScreen();
-    wcout << L"==================================\n";
-    wcout << L"          CHAMPION!               \n";
-    wcout << L"==================================\n\n";
+
+    // Decorated winner title
+    wcout << Color::BORDER << L"╔════════════════════════════════════╗\n";
+    wcout << L"║                                    ║\n";
+    wcout << L"║  " << Color::SUCCESS << L"           우승!              " << Color::BORDER << L"    ║\n";
+    wcout << L"║                                    ║\n";
+    wcout << L"╚════════════════════════════════════╝" << Color::RESET << L"\n";
 
     printPhoto(current_round[0], MAX_HEIGHT, SKIP_TOP);
 
-    wcout << L"\n\n";
-    wcout << L"      Winner: " << names[current_round[0] - 1] << L"!\n\n";
-    wcout << L"  Press any key to exit...\n";
+    wcout << Color::HIGHLIGHT << L"      우승자: " << Color::NAME << names[current_round[0] - 1] << Color::HIGHLIGHT << L"!" << Color::RESET << L"\n";
+    wcout << Color::INFO << L"  아무 키나 눌러 종료..." << Color::RESET;
     getKey();
 }

@@ -1,13 +1,13 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
-#include "photo.h"
+﻿#include "photo.h"
 #include "constants.h"
-#include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
+#include <sstream>
 #include <locale>
 #include <codecvt>
+#include "colors.h"
 
 // Names array definition
 wchar_t names[MAX_NAMES][MAX_NAME_LENGTH] = {
@@ -29,25 +29,46 @@ wchar_t names[MAX_NAMES][MAX_NAME_LENGTH] = {
     L"김지원"
 };
 
-void printPhoto(int photo_no, int max_height, int skip_top)
+// Helper function to read photo file and return all lines
+std::vector<std::wstring> readPhotoFile(int photo_no)
 {
-    char path[256];
-    sprintf(path, "imgs/%d.txt", photo_no);
+    std::vector<std::wstring> all_lines;
+
+    // Build file path using modern C++ string construction
+    std::ostringstream path_stream;
+    path_stream << "imgs/" << photo_no << ".txt";
+    std::string path = path_stream.str();
+
+    // Open file with UTF-8 encoding
     std::wifstream fp(path);
     fp.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
+
     if (!fp.is_open())
     {
-        return;
+        // Return empty vector if file not found
+        return all_lines;
     }
 
-    // First, read all lines to determine total height
-    std::vector<std::wstring> all_lines;
+    // Read all lines from file
     std::wstring line;
     while (std::getline(fp, line))
     {
         all_lines.push_back(line);
     }
     fp.close();
+
+    return all_lines;
+}
+
+void printPhoto(int photo_no, int max_height, int skip_top)
+{
+    // Read all lines from photo file
+    std::vector<std::wstring> all_lines = readPhotoFile(photo_no);
+
+    if (all_lines.empty())
+    {
+        return;
+    }
 
     // Determine if we should skip lines (only if image is taller than max_height)
     int total_lines = (int)all_lines.size();
@@ -90,37 +111,9 @@ void printPhoto(int photo_no, int max_height, int skip_top)
 
 void printPhotoSideBySide(int left_photo, int right_photo, int selected, int trim_left, int trim_right, int max_height, int skip_top)
 {
-    // Read left photo - read all lines first
-    char left_path[256];
-    sprintf(left_path, "imgs/%d.txt", left_photo);
-    std::wifstream left_fp(left_path);
-    left_fp.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
-    std::vector<std::wstring> left_all_lines;
-    if (left_fp.is_open())
-    {
-        std::wstring line;
-        while (std::getline(left_fp, line))
-        {
-            left_all_lines.push_back(line);
-        }
-        left_fp.close();
-    }
-
-    // Read right photo - read all lines first
-    char right_path[256];
-    sprintf(right_path, "imgs/%d.txt", right_photo);
-    std::wifstream right_fp(right_path);
-    right_fp.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
-    std::vector<std::wstring> right_all_lines;
-    if (right_fp.is_open())
-    {
-        std::wstring line;
-        while (std::getline(right_fp, line))
-        {
-            right_all_lines.push_back(line);
-        }
-        right_fp.close();
-    }
+    // Read photos using helper function
+    std::vector<std::wstring> left_all_lines = readPhotoFile(left_photo);
+    std::vector<std::wstring> right_all_lines = readPhotoFile(right_photo);
 
     // Determine if we should skip lines (only if image is taller than max_height)
     int left_total = (int)left_all_lines.size();
@@ -195,7 +188,7 @@ void printPhotoSideBySide(int left_photo, int right_photo, int selected, int tri
     {
         // Left side
         if (selected == 0)
-            std::wcout << L">> ";
+            std::wcout << Color::PASTEL_YELLOW << L">> ";
         else
             std::wcout << L"   ";
 
@@ -228,11 +221,11 @@ void printPhotoSideBySide(int left_photo, int right_photo, int selected, int tri
         }
 
         // Spacing between photos
-        std::wcout << L" | ";
+        std::wcout << Color::RESET << L" | ";
 
         // Right side
         if (selected == 1)
-            std::wcout << L">> ";
+            std::wcout << Color::PASTEL_YELLOW<< L">> ";
         else
             std::wcout << L"   ";
 
@@ -264,6 +257,6 @@ void printPhotoSideBySide(int left_photo, int right_photo, int selected, int tri
                 std::wcout << L" ";
         }
 
-        std::wcout << std::endl;
+        std::wcout << Color::RESET << std::endl;
     }
 }
